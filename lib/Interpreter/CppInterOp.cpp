@@ -2535,13 +2535,13 @@ namespace Cpp {
 #ifdef USE_CLING
     cling::Value V;
 #else
-    clang::Value V;
+    // clang::Value V;
 #endif // USE_CLING
 
     if (HadError)
       *HadError = false;
 
-    auto res = getInterp().evaluate(code, V);
+    auto res = getInterp().evaluate(code);
     if (res != 0) { // 0 is success
       if (HadError)
         *HadError = true;
@@ -2549,7 +2549,7 @@ namespace Cpp {
       return ~0UL;
     }
 
-    return V.castAs<intptr_t>();
+    return 0;
   }
 
   const std::string LookupLibrary(const char *lib_name) {

@@ -180,8 +180,8 @@ public:
     return inner->Execute(T);
   }
 
-  llvm::Error ParseAndExecute(llvm::StringRef Code, clang::Value * V = nullptr) {
-    return inner->ParseAndExecute(Code, V);
+  llvm::Error ParseAndExecute(llvm::StringRef Code) {
+    return inner->ParseAndExecute(Code);
   }
 
   llvm::Error Undo(unsigned N = 1) {
@@ -265,7 +265,7 @@ public:
   /// semantics (declarations are global) and compile to produce a module.
   ///
   CompilationResult
-  process(const std::string& input, clang::Value* V = 0,
+  process(const std::string& input, void* V = 0,
           clang::PartialTranslationUnit **PTU = nullptr,
           bool disableValuePrinting = false) {
     auto PTUOrErr = Parse(input);
@@ -284,8 +284,8 @@ public:
   }
 
   CompilationResult
-  evaluate(const std::string& input, clang::Value& V) {
-    if (auto Err = ParseAndExecute(input, &V)) {
+  evaluate(const std::string& input) {
+    if (auto Err = ParseAndExecute(input)) {
       llvm::logAllUnhandledErrors(std::move(Err), llvm::errs(), "Failed to execute via ::evaluate:");
       return Interpreter::kFailure;
     }

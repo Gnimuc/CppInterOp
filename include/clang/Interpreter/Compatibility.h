@@ -54,7 +54,7 @@ namespace compat {
 #include "clang/AST/Mangle.h"
 #include "clang/Interpreter/DynamicLibraryManager.h"
 #include "clang/Interpreter/Interpreter.h"
-#include "clang/Interpreter/Value.h"
+// #include "clang/Interpreter/Value.h"
 
 #include "llvm/Support/Error.h"
 
@@ -94,7 +94,7 @@ namespace compat {
 
   inline const llvm::orc::LLJIT *getExecutionEngine(clang::Interpreter &I)  {
 #if CLANG_VERSION_MAJOR >= 14
-    return &llvm::cantFail(I.getExecutionEngine());
+    return I.getExecutionEngine();
 #else
     assert(0 && "Not implemented in Clang <14!");
     return nullptr;
@@ -107,7 +107,7 @@ namespace compat {
     auto AddrOrErr = I.getSymbolAddress(GD);
     if (llvm::Error Err = AddrOrErr.takeError())
       return std::move(Err);
-    return AddrOrErr->getValue();
+    return *AddrOrErr;
 #else
     assert(0 && "Not implemented in Clang <14!");
     return llvm::createStringError(llvm::inconvertibleErrorCode(),
@@ -121,7 +121,7 @@ namespace compat {
     auto AddrOrErr = I.getSymbolAddress(IRName);
     if (llvm::Error Err = AddrOrErr.takeError())
       return std::move(Err);
-    return AddrOrErr->getValue();
+    return *AddrOrErr;
 #else
     assert(0 && "Not implemented in Clang <14!");
     return llvm::createStringError(llvm::inconvertibleErrorCode(),
@@ -135,7 +135,7 @@ namespace compat {
     auto AddrOrErr = I.getSymbolAddressFromLinkerName(LinkerName);
     if (llvm::Error Err = AddrOrErr.takeError())
       return std::move(Err);
-    return AddrOrErr->getValue();
+    return *AddrOrErr;
 #else
     assert(0 && "Not implemented in Clang <14!");
     return llvm::createStringError(llvm::inconvertibleErrorCode(),
