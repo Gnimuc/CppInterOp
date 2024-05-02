@@ -7,6 +7,10 @@ set(LLVM_LINK_COMPONENTS
   Support
 )
 
+set(CAPI
+  c/CXCppInterOp.cpp
+)
+
 set(DLM
   DynamicLibraryManager.cpp
   DynamicLibraryManagerSymbol.cpp
@@ -91,6 +95,7 @@ add_llvm_library(clangCppInterOp
   DISABLE_LLVM_LINK_LLVM_DYLIB
   CppInterOp.cpp
   ${DLM}
+  ${CAPI}
   LINK_LIBS
   ${link_libs}
  )
