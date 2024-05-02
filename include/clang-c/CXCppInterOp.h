@@ -10,14 +10,14 @@
 
 LLVM_CLANG_C_EXTERN_C_BEGIN
 
-typedef void * CXCppInterpreter;
-typedef void * CXCppScope;
-typedef void * CXCppType;
-typedef void * CXCppFunction;
-typedef void * CXCppConstFunction;
-typedef void * CXCppFuncAddr;
-typedef void * CXCppObject;
-typedef void * CXCppJitCall;
+typedef void* CXCppInterpreter;
+typedef void* CXCppScope;
+typedef void* CXCppType;
+typedef void* CXCppFunction;
+typedef void* CXCppConstFunction;
+typedef void* CXCppFuncAddr;
+typedef void* CXCppObject;
+typedef void* CXCppJitCall;
 
 CXString clang_CppInterOp_GetVersion(void);
 
@@ -60,7 +60,7 @@ CXCppType clang_CppInterOp_GetIntegerTypeFromEnumScope(CXCppScope scope);
 CXCppType clang_CppInterOp_GetIntegerTypeFromEnumType(CXCppType type);
 
 typedef struct {
-  CXCppScope *Scopes;
+  CXCppScope* Scopes;
   size_t Count;
 } CXCppScopeSet;
 
@@ -106,10 +106,11 @@ CXCppScope clang_CppInterOp_GetBaseClass(CXCppType type, size_t ibase);
 
 bool clang_CppInterOp_IsSubclass(CXCppScope derived, CXCppScope base);
 
-int64_t clang_CppInterOp_GetBaseClassOffset(CXCppScope derived, CXCppScope base);
+int64_t clang_CppInterOp_GetBaseClassOffset(CXCppScope derived,
+                                            CXCppScope base);
 
 typedef struct {
-  CXCppFunction *Funcs;
+  CXCppFunction* Funcs;
   size_t Count;
 } CXCppFunctionSet;
 
@@ -123,7 +124,8 @@ CXCppFunction clang_CppInterOp_GetDefaultConstructor(CXCppScope scope);
 
 CXCppFunction clang_CppInterOp_GetDestructor(CXCppScope scope);
 
-CXCppFunctionSet clang_CppInterOp_GetFunctionsUsingName(CXCppScope scope, const char* name);
+CXCppFunctionSet clang_CppInterOp_GetFunctionsUsingName(CXCppScope scope,
+                                                        const char* name);
 
 CXCppType clang_CppInterOp_GetFunctionReturnType(CXCppFunction func);
 
@@ -139,7 +141,8 @@ bool clang_CppInterOp_IsFunctionDeleted(CXCppConstFunction function);
 
 bool clang_CppInterOp_IsTemplatedFunction(CXCppFunction func);
 
-bool clang_CppInterOp_ExistsFunctionTemplate(const char* name, CXCppScope parent);
+bool clang_CppInterOp_ExistsFunctionTemplate(const char* name,
+                                             CXCppScope parent);
 
 bool clang_CppInterOp_IsMethod(CXCppConstFunction method);
 
@@ -155,15 +158,18 @@ bool clang_CppInterOp_IsDestructor(CXCppConstFunction method);
 
 bool clang_CppInterOp_IsStaticMethod(CXCppConstFunction method);
 
-CXCppFuncAddr clang_CppInterOp_GetFunctionAddressFromMangledName(const char* mangled_name);
+CXCppFuncAddr
+clang_CppInterOp_GetFunctionAddressFromMangledName(const char* mangled_name);
 
-CXCppFuncAddr clang_CppInterOp_GetFunctionAddressFromMethod(CXCppFunction method);
+CXCppFuncAddr
+clang_CppInterOp_GetFunctionAddressFromMethod(CXCppFunction method);
 
 bool clang_CppInterOp_IsVirtualMethod(CXCppFunction method);
 
 CXCppScopeSet clang_CppInterOp_GetDatamembers(CXCppScope scope);
 
-CXCppScope clang_CppInterOp_LookupDatamember(const char* name, CXCppScope parent);
+CXCppScope clang_CppInterOp_LookupDatamember(const char* name,
+                                             CXCppScope parent);
 
 CXCppType clang_CppInterOp_GetVariableType(CXCppScope var);
 
@@ -203,25 +209,28 @@ void clang_CppInterOp_CXCppJitCall_dispose(CXCppJitCall call);
 
 bool clang_CppInterOp_IsConstMethod(CXCppFunction method);
 
-CXString clang_CppInterOp_GetFunctionArgDefault(CXCppFunction func, size_t param_index);
+CXString clang_CppInterOp_GetFunctionArgDefault(CXCppFunction func,
+                                                size_t param_index);
 
-CXString clang_CppInterOp_GetFunctionArgName(CXCppFunction func, size_t param_index);
+CXString clang_CppInterOp_GetFunctionArgName(CXCppFunction func,
+                                             size_t param_index);
 
-CXCppInterpreter clang_CppInterOp_CreateInterpreter(const char* Args, const char* GpuArgs);
+CXCppInterpreter clang_CppInterOp_CreateInterpreter(const char* Args,
+                                                    const char* GpuArgs);
 
 CXCppInterpreter clang_CppInterOp_GetInterpreter();
 
-void clang_CppInterOp_AddSearchPath(const char *dir, bool isUser, bool prepend);
+void clang_CppInterOp_AddSearchPath(const char* dir, bool isUser, bool prepend);
 
 const char* clang_CppInterOp_GetResourceDir();
 
-void clang_CppInterOp_AddIncludePath(const char *dir);
+void clang_CppInterOp_AddIncludePath(const char* dir);
 
 int clang_CppInterOp_Declare(const char* code, bool silent);
 
-int clang_CppInterOp_Process(const char *code);
+int clang_CppInterOp_Process(const char* code);
 
-intptr_t clang_CppInterOp_Evaluate(const char *code, bool *HadError);
+intptr_t clang_CppInterOp_Evaluate(const char* code, bool* HadError);
 
 CXString clang_CppInterOp_LookupLibrary(const char* lib_name);
 
@@ -229,18 +238,23 @@ bool clang_CppInterOp_LoadLibrary(const char* lib_stem, bool lookup);
 
 void clang_CppInterOp_UnloadLibrary(const char* lib_stem);
 
-CXString clang_CppInterOp_SearchLibrariesForSymbol(const char* mangled_name, bool search_system);
+CXString clang_CppInterOp_SearchLibrariesForSymbol(const char* mangled_name,
+                                                   bool search_system);
 
-bool clang_CppInterOp_InsertOrReplaceJitSymbol(const char* linker_mangled_name, uint64_t address);
+bool clang_CppInterOp_InsertOrReplaceJitSymbol(const char* linker_mangled_name,
+                                               uint64_t address);
 
-CXString clang_CppInterOp_ObjToString(const char *type, void *obj);
+CXString clang_CppInterOp_ObjToString(const char* type, void* obj);
 
 typedef struct {
   CXCppType m_Type;
   char* m_IntegralValue;
 } CXTemplateArgInfo;
 
-CXCppScope clang_CppInterOp_InstantiateClassTemplate(CXCppScope tmpl, CXTemplateArgInfo* template_args, size_t template_args_size);
+CXCppScope
+clang_CppInterOp_InstantiateClassTemplate(CXCppScope tmpl,
+                                          CXTemplateArgInfo* template_args,
+                                          size_t template_args_size);
 
 typedef struct {
   CXTemplateArgInfo* Args;
@@ -249,16 +263,18 @@ typedef struct {
 
 void clang_CppInterOp_CXTemplateArgInfoSet_dispose(CXTemplateArgInfoSet args);
 
-CXTemplateArgInfoSet clang_CppInterOp_GetClassTemplateInstantiationArgs(CXCppScope templ_instance);
+CXTemplateArgInfoSet
+clang_CppInterOp_GetClassTemplateInstantiationArgs(CXCppScope templ_instance);
 
-CXCppFunction clang_CppInterOp_InstantiateTemplateFunctionFromString(const char* function_template);
+CXCppFunction clang_CppInterOp_InstantiateTemplateFunctionFromString(
+    const char* function_template);
 
 CXStringSet* clang_CppInterOp_GetAllCppNames(CXCppScope scope);
 
 void clang_CppInterOp_DumpScope(CXCppScope scope);
 
 typedef struct {
-  size_t *Dims;
+  size_t* Dims;
   size_t Count;
 } CXCppDimensions;
 
@@ -272,7 +288,8 @@ void clang_CppInterOp_Deallocate(CXCppScope scope, CXCppObject address);
 
 CXCppObject clang_CppInterOp_Construct(CXCppScope scope, void* arena);
 
-void clang_CppInterOp_Destruct(CXCppObject This, CXCppScope type, bool withFree);
+void clang_CppInterOp_Destruct(CXCppObject This, CXCppScope type,
+                               bool withFree);
 
 typedef enum CXCppCaptureStreamKind : char {
   CXCppkStdOut = 1, ///< stdout
@@ -284,7 +301,6 @@ typedef enum CXCppCaptureStreamKind : char {
 void clang_CppInterOp_BeginStdStreamCapture(CXCppCaptureStreamKind fd_kind);
 
 CXString clang_CppInterOp_EndStdStreamCapture();
-
 
 LLVM_CLANG_C_EXTERN_C_END
 

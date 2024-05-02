@@ -1,5 +1,5 @@
-#include "clang/Interpreter/CppInterOp.h"
 #include "clang-c/CXCppInterOp.h"
+#include "clang/Interpreter/CppInterOp.h"
 #include "clang-c/CXString.h"
 
 using namespace Cpp;
@@ -14,8 +14,8 @@ CXString createCXString(const std::string& str) {
   return Str;
 }
 
-CXStringSet *createCXStringSet(const std::vector<std::string> &strs) {
-  CXStringSet *Set = new CXStringSet;
+CXStringSet* createCXStringSet(const std::vector<std::string>& strs) {
+  CXStringSet* Set = new CXStringSet;
   Set->Count = strs.size();
   Set->Strings = new CXString[Set->Count];
   for (unsigned int i = 0; i < Set->Count; ++i) {
@@ -47,25 +47,15 @@ bool clang_CppInterOp_IsNamespace(CXCppScope scope) {
   return IsNamespace(scope);
 }
 
-bool clang_CppInterOp_IsClass(CXCppScope scope) {
-  return IsClass(scope);
-}
+bool clang_CppInterOp_IsClass(CXCppScope scope) { return IsClass(scope); }
 
-bool clang_CppInterOp_IsComplete(CXCppScope scope) {
-  return IsComplete(scope);
-}
+bool clang_CppInterOp_IsComplete(CXCppScope scope) { return IsComplete(scope); }
 
-size_t clang_CppInterOp_SizeOf(CXCppScope scope) {
-  return SizeOf(scope);
-}
+size_t clang_CppInterOp_SizeOf(CXCppScope scope) { return SizeOf(scope); }
 
-bool clang_CppInterOp_IsBuiltin(CXCppType type) {
-  return IsBuiltin(type);
-}
+bool clang_CppInterOp_IsBuiltin(CXCppType type) { return IsBuiltin(type); }
 
-bool clang_CppInterOp_IsTemplate(CXCppScope scope) {
-  return IsTemplate(scope);
-}
+bool clang_CppInterOp_IsTemplate(CXCppScope scope) { return IsTemplate(scope); }
 
 bool clang_CppInterOp_IsTemplateSpecialization(CXCppScope scope) {
   return IsTemplateSpecialization(scope);
@@ -75,9 +65,7 @@ bool clang_CppInterOp_IsTypedefed(CXCppScope scope) {
   return IsTypedefed(scope);
 }
 
-bool clang_CppInterOp_IsAbstract(CXCppType type) {
-  return IsAbstract(type);
-}
+bool clang_CppInterOp_IsAbstract(CXCppType type) { return IsAbstract(type); }
 
 bool clang_CppInterOp_IsEnumScope(CXCppScope scope) {
   return IsEnumScope(scope);
@@ -87,9 +75,7 @@ bool clang_CppInterOp_IsEnumConstant(CXCppScope scope) {
   return IsEnumConstant(scope);
 }
 
-bool clang_CppInterOp_IsEnumType(CXCppType type) {
-  return IsEnumType(type);
-}
+bool clang_CppInterOp_IsEnumType(CXCppType type) { return IsEnumType(type); }
 
 CXStringSet* clang_CppInterOp_GetEnums(CXCppScope scope) {
   std::vector<std::string> EnumNames;
@@ -116,7 +102,7 @@ void clang_CppInterOp_CXCppScopeSet_dispose(CXCppScopeSet scopes) {
 
 CXCppScopeSet clang_CppInterOp_GetEnumConstants(CXCppScope scope) {
   CXCppScopeSet S;
-  const auto &V = GetEnumConstants(scope);
+  const auto& V = GetEnumConstants(scope);
   S.Count = V.size();
   S.Scopes = new CXCppScope[S.Count];
   std::copy(V.begin(), V.end(), S.Scopes);
@@ -135,9 +121,7 @@ size_t clang_CppInterOp_GetSizeOfType(CXCppType type) {
   return GetSizeOfType(type);
 }
 
-bool clang_CppInterOp_IsVariable(CXCppScope scope) {
-  return IsVariable(scope);
-}
+bool clang_CppInterOp_IsVariable(CXCppScope scope) { return IsVariable(scope); }
 
 CXString clang_CppInterOp_GetName(CXCppScope klass) {
   return createCXString(GetName(klass));
@@ -157,16 +141,14 @@ CXString clang_CppInterOp_GetQualifiedCompleteName(CXCppType klass) {
 
 CXCppScopeSet clang_CppInterOp_GetUsingNamespaces(CXCppScope scope) {
   CXCppScopeSet S;
-  const auto &V = GetUsingNamespaces(scope);
+  const auto& V = GetUsingNamespaces(scope);
   S.Count = V.size();
   S.Scopes = new CXCppScope[S.Count];
   std::copy(V.begin(), V.end(), S.Scopes);
   return S;
 }
 
-CXCppScope clang_CppInterOp_GetGlobalScope(void) {
-  return GetGlobalScope();
-}
+CXCppScope clang_CppInterOp_GetGlobalScope(void) { return GetGlobalScope(); }
 
 CXCppScope clang_CppInterOp_GetUnderlyingScope(CXCppScope scope) {
   return GetUnderlyingScope(scope);
@@ -207,7 +189,8 @@ bool clang_CppInterOp_IsSubclass(CXCppScope derived, CXCppScope base) {
   return IsSubclass(derived, base);
 }
 
-int64_t clang_CppInterOp_GetBaseClassOffset(CXCppScope derived, CXCppScope base) {
+int64_t clang_CppInterOp_GetBaseClassOffset(CXCppScope derived,
+                                            CXCppScope base) {
   return GetBaseClassOffset(derived, base);
 }
 
@@ -218,7 +201,7 @@ void clang_CppInterOp_CXCppFunctionSet_dispose(CXCppFunctionSet funcs) {
 
 CXCppFunctionSet clang_CppInterOp_GetClassMethods(CXCppScope klass) {
   CXCppFunctionSet S;
-  const auto &V = GetClassMethods(klass);
+  const auto& V = GetClassMethods(klass);
   S.Count = V.size();
   S.Funcs = new CXCppFunction[S.Count];
   std::copy(V.begin(), V.end(), S.Funcs);
@@ -237,10 +220,11 @@ CXCppFunction clang_CppInterOp_GetDestructor(CXCppScope scope) {
   return GetDestructor(scope);
 }
 
-CXCppFunctionSet clang_CppInterOp_GetFunctionsUsingName(CXCppScope scope, const char* name) {
+CXCppFunctionSet clang_CppInterOp_GetFunctionsUsingName(CXCppScope scope,
+                                                        const char* name) {
   std::string s(name);
   CXCppFunctionSet S;
-  const auto &V = GetFunctionsUsingName(scope, s);
+  const auto& V = GetFunctionsUsingName(scope, s);
   S.Count = V.size();
   S.Funcs = new CXCppFunction[S.Count];
   std::copy(V.begin(), V.end(), S.Funcs);
@@ -259,7 +243,8 @@ size_t clang_CppInterOp_GetFunctionRequiredArgs(CXCppConstFunction func) {
   return GetFunctionRequiredArgs(func);
 }
 
-CXCppType clang_CppInterOp_GetFunctionArgType(CXCppFunction func, size_t index) {
+CXCppType clang_CppInterOp_GetFunctionArgType(CXCppFunction func,
+                                              size_t index) {
   return GetFunctionArgType(func, index);
 }
 
@@ -275,7 +260,8 @@ bool clang_CppInterOp_IsTemplatedFunction(CXCppFunction func) {
   return IsTemplatedFunction(func);
 }
 
-bool clang_CppInterOp_ExistsFunctionTemplate(const char* name, CXCppScope parent) {
+bool clang_CppInterOp_ExistsFunctionTemplate(const char* name,
+                                             CXCppScope parent) {
   std::string s(name);
   return ExistsFunctionTemplate(s, parent);
 }
@@ -308,11 +294,13 @@ bool clang_CppInterOp_IsStaticMethod(CXCppConstFunction method) {
   return IsStaticMethod(method);
 }
 
-CXCppFuncAddr clang_CppInterOp_GetFunctionAddressFromMangledName(const char* mangled_name) {
+CXCppFuncAddr
+clang_CppInterOp_GetFunctionAddressFromMangledName(const char* mangled_name) {
   return GetFunctionAddress(mangled_name);
 }
 
-CXCppFuncAddr clang_CppInterOp_GetFunctionAddressFromMethod(CXCppFunction method) {
+CXCppFuncAddr
+clang_CppInterOp_GetFunctionAddressFromMethod(CXCppFunction method) {
   return GetFunctionAddress(method);
 }
 
@@ -322,14 +310,15 @@ bool clang_CppInterOp_IsVirtualMethod(CXCppFunction method) {
 
 CXCppScopeSet clang_CppInterOp_GetDatamembers(CXCppScope scope) {
   CXCppScopeSet S;
-  const auto &V = GetDatamembers(scope);
+  const auto& V = GetDatamembers(scope);
   S.Count = V.size();
   S.Scopes = new CXCppScope[S.Count];
   std::copy(V.begin(), V.end(), S.Scopes);
   return S;
 }
 
-CXCppScope clang_CppInterOp_LookupDatamember(const char* name, CXCppScope parent) {
+CXCppScope clang_CppInterOp_LookupDatamember(const char* name,
+                                             CXCppScope parent) {
   std::string s(name);
   return LookupDatamember(s, parent);
 }
@@ -366,9 +355,7 @@ bool clang_CppInterOp_IsRecordType(CXCppType type) {
   return IsRecordType(type);
 }
 
-bool clang_CppInterOp_IsPODType(CXCppType type) {
-  return IsPODType(type);
-}
+bool clang_CppInterOp_IsPODType(CXCppType type) { return IsPODType(type); }
 
 CXCppType clang_CppInterOp_GetUnderlyingType(CXCppType type) {
   return GetUnderlyingType(type);
@@ -405,14 +392,15 @@ CXCppJitCall clang_CppInterOp_MakeFunctionCallable(CXCppConstFunction func) {
 }
 
 void clang_CppInterOp_CXCppJitCall_dispose(CXCppJitCall call) {
-  delete static_cast<JitCall *>(call);
+  delete static_cast<JitCall*>(call);
 }
 
 bool clang_CppInterOp_IsConstMethod(CXCppFunction method) {
   return IsConstMethod(method);
 }
 
-CXString clang_CppInterOp_GetFunctionArgDefault(CXCppFunction func, size_t index) {
+CXString clang_CppInterOp_GetFunctionArgDefault(CXCppFunction func,
+                                                size_t index) {
   return createCXString(GetFunctionArgDefault(func, index));
 }
 
@@ -420,7 +408,10 @@ CXString clang_CppInterOp_GetFunctionArgName(CXCppFunction func, size_t index) {
   return createCXString(GetFunctionArgName(func, index));
 }
 
-CXCppInterpreter clang_CppInterOp_CreateInterpreter(const char** args, size_t num_args, const char** gpu_args, size_t num_gpu_args) {
+CXCppInterpreter clang_CppInterOp_CreateInterpreter(const char** args,
+                                                    size_t num_args,
+                                                    const char** gpu_args,
+                                                    size_t num_gpu_args) {
   std::vector<const char*> Args;
   for (size_t i = 0; i < num_args; i++) {
     Args.push_back(args[i]);
@@ -436,25 +427,20 @@ CXCppInterpreter clang_CppInterOp_GetInterpreter(void) {
   return GetInterpreter();
 }
 
-void clang_CppInterOp_AddSearchPath(const char *dir, bool isUser, bool prepend) {
+void clang_CppInterOp_AddSearchPath(const char* dir, bool isUser,
+                                    bool prepend) {
   AddSearchPath(dir, isUser, prepend);
 }
 
-const char* clang_CppInterOp_GetResourceDir(void) {
-  return GetResourceDir();
-}
+const char* clang_CppInterOp_GetResourceDir(void) { return GetResourceDir(); }
 
-void clang_CppInterOp_AddIncludePath(const char *dir) {
-  AddIncludePath(dir);
-}
+void clang_CppInterOp_AddIncludePath(const char* dir) { AddIncludePath(dir); }
 
 int clang_CppInterOp_Declare(const char* code, bool silent) {
   return Declare(code, silent);
 }
 
-int clang_CppInterOp_Process(const char *code) {
-  return Process(code);
-}
+int clang_CppInterOp_Process(const char* code) { return Process(code); }
 
 intptr_t clang_CppInterOp_Evaluate(const char* code, bool* had_error) {
   return Evaluate(code, had_error);
@@ -472,11 +458,13 @@ void clang_CppInterOp_UnloadLibrary(const char* lib_stem) {
   UnloadLibrary(lib_stem);
 }
 
-CXString clang_CppInterOp_SearchLibrariesForSymbol(const char* mangled_name, bool search_system) {
+CXString clang_CppInterOp_SearchLibrariesForSymbol(const char* mangled_name,
+                                                   bool search_system) {
   return createCXString(SearchLibrariesForSymbol(mangled_name, search_system));
 }
 
-bool clang_CppInterOp_InsertOrReplaceJitSymbol(const char* linker_mangled_name, uint64_t address) {
+bool clang_CppInterOp_InsertOrReplaceJitSymbol(const char* linker_mangled_name,
+                                               uint64_t address) {
   return InsertOrReplaceJitSymbol(linker_mangled_name, address);
 }
 
@@ -484,7 +472,10 @@ CXString clang_CppInterOp_ObjToString(const char* type, void* obj) {
   return createCXString(ObjToString(type, obj));
 }
 
-CXCppScope clang_CppInterOp_InstantiateClassTemplate(CXCppScope tmpl, CXTemplateArgInfo* template_args, size_t template_args_size) {
+CXCppScope
+clang_CppInterOp_InstantiateClassTemplate(CXCppScope tmpl,
+                                          CXTemplateArgInfo* template_args,
+                                          size_t template_args_size) {
   std::vector<TemplateArgInfo> Args;
   for (size_t i = 0; i < template_args_size; i++) {
     Args.push_back({template_args[i].m_Type, template_args[i].m_IntegralValue});
@@ -492,7 +483,8 @@ CXCppScope clang_CppInterOp_InstantiateClassTemplate(CXCppScope tmpl, CXTemplate
   return InstantiateClassTemplate(tmpl, Args.data(), Args.size());
 }
 
-CXCppFunction clang_CppInterOp_InstantiateTemplateFunctionFromString(const char* function_template) {
+CXCppFunction clang_CppInterOp_InstantiateTemplateFunctionFromString(
+    const char* function_template) {
   return InstantiateTemplateFunctionFromString(function_template);
 }
 
@@ -501,7 +493,8 @@ void clang_CppInterOp_CXTemplateArgInfoSet_dispose(CXTemplateArgInfoSet args) {
     delete args.Args;
 }
 
-CXTemplateArgInfoSet clang_CppInterOp_GetClassTemplateInstantiationArgs(CXCppScope templ_instance) {
+CXTemplateArgInfoSet
+clang_CppInterOp_GetClassTemplateInstantiationArgs(CXCppScope templ_instance) {
   CXTemplateArgInfoSet S;
   std::vector<TemplateArgInfo> V;
   GetClassTemplateInstantiationArgs(templ_instance, V);
@@ -509,7 +502,7 @@ CXTemplateArgInfoSet clang_CppInterOp_GetClassTemplateInstantiationArgs(CXCppSco
   S.Args = new CXTemplateArgInfo[S.Count];
   for (size_t i = 0; i < S.Count; i++) {
     S.Args[i].m_Type = V[i].m_Type;
-    S.Args[i].m_IntegralValue = const_cast<char *>(V[i].m_IntegralValue);
+    S.Args[i].m_IntegralValue = const_cast<char*>(V[i].m_IntegralValue);
   }
   return S;
 }
@@ -527,7 +520,7 @@ void clang_CppInterOp_CXCppDimensions_dispose(CXCppDimensions dims) {
 
 CXCppDimensions clang_CppInterOp_GetDimensions(CXCppType type) {
   CXCppDimensions D;
-  const auto &V = GetDimensions(type);
+  const auto& V = GetDimensions(type);
   D.Count = V.size();
   D.Dims = new size_t[D.Count];
   std::copy(V.begin(), V.end(), D.Dims);
@@ -546,7 +539,8 @@ CXCppObject clang_CppInterOp_Construct(CXCppScope scope, void* arena) {
   return Construct(scope, arena);
 }
 
-void clang_CppInterOp_Destruct(CXCppObject This, CXCppScope type, bool withFree) {
+void clang_CppInterOp_Destruct(CXCppObject This, CXCppScope type,
+                               bool withFree) {
   Destruct(This, type, withFree);
 }
 
