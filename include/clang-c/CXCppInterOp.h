@@ -6,6 +6,7 @@
 #include "clang-c/Platform.h"
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 
 LLVM_CLANG_C_EXTERN_C_BEGIN
@@ -218,11 +219,11 @@ CXString clang_CppInterOp_GetFunctionArgName(CXCppFunction func,
 CXCppInterpreter clang_CppInterOp_CreateInterpreter(const char* Args,
                                                     const char* GpuArgs);
 
-CXCppInterpreter clang_CppInterOp_GetInterpreter();
+CXCppInterpreter clang_CppInterOp_GetInterpreter(void);
 
 void clang_CppInterOp_AddSearchPath(const char* dir, bool isUser, bool prepend);
 
-const char* clang_CppInterOp_GetResourceDir();
+const char* clang_CppInterOp_GetResourceDir(void);
 
 void clang_CppInterOp_AddIncludePath(const char* dir);
 
@@ -300,7 +301,7 @@ typedef enum CXCppCaptureStreamKind : char {
 
 void clang_CppInterOp_BeginStdStreamCapture(CXCppCaptureStreamKind fd_kind);
 
-CXString clang_CppInterOp_EndStdStreamCapture();
+CXString clang_CppInterOp_EndStdStreamCapture(void);
 
 LLVM_CLANG_C_EXTERN_C_END
 

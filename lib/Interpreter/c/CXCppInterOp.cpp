@@ -548,6 +548,6 @@ void clang_CppInterOp_BeginStdStreamCapture(CXCppCaptureStreamKind fd_kind) {
   BeginStdStreamCapture(static_cast<CaptureStreamKind>(fd_kind));
 }
 
-CXString clang_CppInterOp_EndStdStreamCapture() {
+CXString clang_CppInterOp_EndStdStreamCapture(void) {
   return createCXString(EndStdStreamCapture().c_str());
 }
