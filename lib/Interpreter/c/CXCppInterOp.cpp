@@ -1,5 +1,7 @@
 #include "clang-c/CXCppInterOp.h"
 #include "clang/Interpreter/CppInterOp.h"
+#include <cstring>
+#include <memory>
 #include "clang-c/CXString.h"
 
 using namespace Cpp;
