@@ -292,7 +292,7 @@ CXCppObject clang_CppInterOp_Construct(CXCppScope scope, void* arena);
 void clang_CppInterOp_Destruct(CXCppObject This, CXCppScope type,
                                bool withFree);
 
-typedef enum CXCppCaptureStreamKind : char {
+typedef enum CXCppCaptureStreamKind {
   CXCppkStdOut = 1, ///< stdout
   CXCppkStdErr,     ///< stderr
   // CXCppkStdBoth,    ///< stdout and stderr
