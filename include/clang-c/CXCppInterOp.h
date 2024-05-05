@@ -216,8 +216,10 @@ CXString clang_CppInterOp_GetFunctionArgDefault(CXCppFunction func,
 CXString clang_CppInterOp_GetFunctionArgName(CXCppFunction func,
                                              size_t param_index);
 
-CXCppInterpreter clang_CppInterOp_CreateInterpreter(const char* Args,
-                                                    const char* GpuArgs);
+CXCppInterpreter clang_CppInterOp_CreateInterpreter(const char** args,
+                                                    size_t num_args,
+                                                    const char** gpu_args,
+                                                    size_t num_gpu_args);
 
 CXCppInterpreter clang_CppInterOp_GetInterpreter(void);
 
