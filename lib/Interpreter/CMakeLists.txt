@@ -99,13 +99,12 @@ if (LLVM_LINK_LLVM_DYLIB)
 endif(LLVM_LINK_LLVM_DYLIB)
 
 add_llvm_library(clangCppInterOp
-  DISABLE_LLVM_LINK_LLVM_DYLIB
   CppInterOp.cpp
   ${DLM}
   ${CAPI}
-  LINK_LIBS
-  ${link_libs}
- )
+)
+
+target_link_libraries(clangCppInterOp LINK_PUBLIC LLVM clang-cpp)
 
 string(REPLACE ";" "\;" _VER CPPINTEROP_VERSION)
 set_source_files_properties(CppInterOp.cpp PROPERTIES COMPILE_DEFINITIONS
