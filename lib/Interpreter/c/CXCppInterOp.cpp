@@ -203,7 +203,8 @@ void clang_CppInterOp_CXCppFunctionSet_dispose(CXCppFunctionSet funcs) {
 
 CXCppFunctionSet clang_CppInterOp_GetClassMethods(CXCppScope klass) {
   CXCppFunctionSet S;
-  const auto& V = GetClassMethods(klass);
+  std::vector<TCppFunction_t> V;
+  GetClassMethods(klass, V);
   S.Count = V.size();
   S.Funcs = new CXCppFunction[S.Count];
   std::copy(V.begin(), V.end(), S.Funcs);
@@ -475,14 +476,14 @@ CXString clang_CppInterOp_ObjToString(const char* type, void* obj) {
 }
 
 CXCppScope
-clang_CppInterOp_InstantiateClassTemplate(CXCppScope tmpl,
-                                          CXTemplateArgInfo* template_args,
-                                          size_t template_args_size) {
+clang_CppInterOp_InstantiateTemplate(CXCppScope tmpl,
+                                     CXTemplateArgInfo* template_args,
+                                     size_t template_args_size) {
   std::vector<TemplateArgInfo> Args;
   for (size_t i = 0; i < template_args_size; i++) {
     Args.push_back({template_args[i].m_Type, template_args[i].m_IntegralValue});
   }
-  return InstantiateClassTemplate(tmpl, Args.data(), Args.size());
+  return InstantiateTemplate(tmpl, Args.data(), Args.size());
 }
 
 CXCppFunction clang_CppInterOp_InstantiateTemplateFunctionFromString(

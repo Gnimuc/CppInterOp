@@ -255,9 +255,9 @@ typedef struct {
 } CXTemplateArgInfo;
 
 CXCppScope
-clang_CppInterOp_InstantiateClassTemplate(CXCppScope tmpl,
-                                          CXTemplateArgInfo* template_args,
-                                          size_t template_args_size);
+clang_CppInterOp_InstantiateTemplate(CXCppScope tmpl,
+                                     CXTemplateArgInfo* template_args,
+                                     size_t template_args_size);
 
 typedef struct {
   CXTemplateArgInfo* Args;
