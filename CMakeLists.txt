@@ -48,7 +48,7 @@ message(STATUS "LLVM Binary Directory: ${LLVM_BINARY_DIR}")
 target_compile_definitions(CppInterOp PRIVATE "CPPINTEROP_VERSION=\"${CPPINTEROP_VERSION}\"")
 target_compile_definitions(CppInterOp PRIVATE "LLVM_BINARY_DIR=\"${LLVM_BINARY_DIR}\";")
 
-target_link_libraries(CppInterOp LINK_PUBLIC LLVM clang-cpp)
+target_link_libraries(CppInterOp PUBLIC LLVM clang-cpp)
 
 # Install CompilationDatabase
 set_target_properties(CppInterOp PROPERTIES EXPORT_COMPILE_COMMANDS true)
