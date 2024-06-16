@@ -16,6 +16,7 @@ add_cppinterop_unittest(CppInterOpTests
 target_link_libraries(CppInterOpTests
   PRIVATE
   clangCppInterOp
+  libclang
   )
 
 set_source_files_properties(InterpreterTest.cpp PROPERTIES COMPILE_DEFINITIONS
