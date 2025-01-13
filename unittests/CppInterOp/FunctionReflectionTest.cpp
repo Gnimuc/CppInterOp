@@ -161,6 +161,15 @@ TEST(FunctionReflectionTest, HasDefaultConstructor) {
   EXPECT_TRUE(Cpp::HasDefaultConstructor(Decls[0]));
   EXPECT_TRUE(Cpp::HasDefaultConstructor(Decls[1]));
   EXPECT_FALSE(Cpp::HasDefaultConstructor(Decls[3]));
+
+  // C API
+  auto I = clang_createInterpreterFromRawPtr(Cpp::GetInterpreter());
+  EXPECT_TRUE(clang_hasDefaultConstructor(make_scope(Decls[0], I)));
+  EXPECT_TRUE(clang_hasDefaultConstructor(make_scope(Decls[1], I)));
+  EXPECT_FALSE(clang_hasDefaultConstructor(make_scope(Decls[3], I)));
+  // Clean up resources
+  clang_Interpreter_takeInterpreterAsPtr(I);
+  clang_Interpreter_dispose(I);
 }
 
 TEST(FunctionReflectionTest, GetDestructor) {
@@ -189,6 +198,14 @@ TEST(FunctionReflectionTest, GetDestructor) {
   EXPECT_TRUE(DeletedDtor);
   EXPECT_TRUE(Cpp::IsFunctionDeleted(DeletedDtor));
   EXPECT_FALSE(Cpp::GetDestructor(Decls[3]));
+
+  // C API
+  auto I = clang_createInterpreterFromRawPtr(Cpp::GetInterpreter());
+  EXPECT_TRUE(clang_getDestructor(make_scope(Decls[0], I)).data[0]);
+  EXPECT_TRUE(clang_getDestructor(make_scope(Decls[1], I)).data[0]);
+  // Clean up resources
+  clang_Interpreter_takeInterpreterAsPtr(I);
+  clang_Interpreter_dispose(I);
 }
 
 TEST(FunctionReflectionTest, GetFunctionsUsingName) {
@@ -509,6 +526,17 @@ TEST(FunctionReflectionTest, IsTemplatedFunction) {
   EXPECT_FALSE(Cpp::IsTemplatedFunction(Decls[3]));
   EXPECT_FALSE(Cpp::IsTemplatedFunction(SubDeclsC1[1]));
   EXPECT_TRUE(Cpp::IsTemplatedFunction(SubDeclsC1[2]));
+
+  // C API
+  auto I = clang_createInterpreterFromRawPtr(Cpp::GetInterpreter());
+  EXPECT_FALSE(clang_isTemplatedFunction(make_scope(Decls[0], I)));
+  EXPECT_TRUE(clang_isTemplatedFunction(make_scope(Decls[1], I)));
+  EXPECT_FALSE(clang_isTemplatedFunction(make_scope(Decls[3], I)));
+  EXPECT_FALSE(clang_isTemplatedFunction(make_scope(SubDeclsC1[1], I)));
+  EXPECT_TRUE(clang_isTemplatedFunction(make_scope(SubDeclsC1[2], I)));
+  // Clean up resources
+  clang_Interpreter_takeInterpreterAsPtr(I);
+  clang_Interpreter_dispose(I);
 }
 
 TEST(FunctionReflectionTest, ExistsFunctionTemplate) {
@@ -529,6 +557,14 @@ TEST(FunctionReflectionTest, ExistsFunctionTemplate) {
   EXPECT_TRUE(Cpp::ExistsFunctionTemplate("f", 0));
   EXPECT_TRUE(Cpp::ExistsFunctionTemplate("f", Decls[1]));
   EXPECT_FALSE(Cpp::ExistsFunctionTemplate("f", Decls[2]));
+
+  // C API
+  auto I = clang_createInterpreterFromRawPtr(Cpp::GetInterpreter());
+  EXPECT_TRUE(clang_existsFunctionTemplate("f", make_scope(Decls[1], I)));
+  EXPECT_FALSE(clang_existsFunctionTemplate("f", make_scope(Decls[2], I)));
+  // Clean up resources
+  clang_Interpreter_takeInterpreterAsPtr(I);
+  clang_Interpreter_dispose(I);
 }
 
 TEST(FunctionReflectionTest, InstantiateTemplateFunctionFromString) {

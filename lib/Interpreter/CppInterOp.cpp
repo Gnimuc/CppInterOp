@@ -783,7 +783,8 @@ namespace Cpp {
     return false;
   }
 
-  TCppFunction_t GetDefaultConstructor(compat::Interpreter& interp, TCppScope_t scope) {
+  TCppFunction_t GetDefaultConstructor(compat::Interpreter& interp,
+                                       TCppScope_t scope) {
     if (!HasDefaultConstructor(scope))
       return nullptr;
 
