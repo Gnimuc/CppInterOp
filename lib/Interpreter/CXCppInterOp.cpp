@@ -337,7 +337,7 @@ enum CXErrorCode clang_Interpreter_declare(CXInterpreter I, const char* code,
   const auto result = interp->declare(code);
   diag.setSuppressAllDiagnostics(is_silent_old);
 
-  if (result)
+  if (result != Cpp::Interpreter::kSuccess)
     return CXError_Failure;
 
   return CXError_Success;
