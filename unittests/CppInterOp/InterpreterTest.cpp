@@ -117,6 +117,16 @@ TEST(InterpreterTest, CreateInterpreter) {
   auto CXI = clang_createInterpreterFromRawPtr(I);
   auto CLI = clang_Interpreter_getClangInterpreter(CXI);
   EXPECT_TRUE(CLI);
+
+  clang_Interpreter_addSearchPath(CXI, "dummy", false, false);
+  clang_Interpreter_addIncludePath(CXI, "dummy");
+  clang_Interpreter_declare(CXI, "#include <iostream>", false);
+  clang_Interpreter_process(CXI, "int c = 42;");
+  auto CXV = clang_createValue();
+  auto Res = clang_Interpreter_evaluate(CXI, "c", CXV);
+  EXPECT_EQ(Res, CXError_Success);
+  
+  clang_Value_dispose(CXV);
   auto I2 = clang_Interpreter_takeInterpreterAsPtr(CXI);
   EXPECT_EQ(I, I2);
   clang_Interpreter_dispose(CXI);

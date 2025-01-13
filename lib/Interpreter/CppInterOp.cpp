@@ -783,12 +783,16 @@ namespace Cpp {
     return false;
   }
 
-  TCppFunction_t GetDefaultConstructor(TCppScope_t scope) {
+  TCppFunction_t GetDefaultConstructor(compat::Interpreter& interp, TCppScope_t scope) {
     if (!HasDefaultConstructor(scope))
       return nullptr;
 
     auto *CXXRD = (clang::CXXRecordDecl*)scope;
-    return getSema().LookupDefaultConstructor(CXXRD);
+    return interp.getCI()->getSema().LookupDefaultConstructor(CXXRD);
+  }
+
+  TCppFunction_t GetDefaultConstructor(TCppScope_t scope) {
+    return GetDefaultConstructor(getInterp(), scope);
   }
 
   TCppFunction_t GetDestructor(TCppScope_t scope) {
@@ -3376,7 +3380,7 @@ namespace Cpp {
     if (!HasDefaultConstructor(Class))
       return nullptr;
 
-    auto* const Ctor = GetDefaultConstructor(Class);
+    auto* const Ctor = GetDefaultConstructor(interp, Class);
     if (JitCall JC = MakeFunctionCallable(&interp, Ctor)) {
       if (arena) {
         JC.Invoke(&arena, {}, (void*)~0); // Tell Invoke to use placement new.
