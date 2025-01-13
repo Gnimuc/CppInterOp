@@ -2887,15 +2887,17 @@ namespace Cpp {
   };
   } // namespace
 
-  int Declare(const char* code, bool silent) {
-    auto& I = getInterp();
-
+  int Declare(compat::Interpreter& I, const char* code, bool silent) {
     if (silent) {
       clangSilent diagSuppr(I.getSema().getDiagnostics());
       return I.declare(code);
     }
 
     return I.declare(code);
+  }
+
+  int Declare(const char* code, bool silent) {
+    return Declare(getInterp(), code, silent);
   }
 
   int Process(const char *code) {
